@@ -61,7 +61,21 @@ const getProducts = catchAsync(async (req, res) => {
   res.send(products);
 });
 
+
+const createProduct = catchAsync(async (req, res) => {
+  for (let obj of req.body) {
+    const { name, category, cost, rating, image } = obj
+    const productData = {
+      name, category, cost, rating, image
+    }
+    await productService.createProduct(productData)
+  }
+  return res.status(200).send('Success')
+
+})
+
 module.exports = {
   getProductById,
   getProducts,
+  createProduct,
 };

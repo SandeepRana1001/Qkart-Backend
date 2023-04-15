@@ -14,25 +14,19 @@ const userSchema = mongoose.Schema(
       trim: true,
     },
     email: {
-      type:String,
-      required:true,
-      unique:true,
-      trim:true,
-      lowercase:true,
-      validate(value){
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      lowercase: true,
+      validate(value) {
         const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        if(!value.match(regex)){
+        if (!value.match(regex)) {
           throw new Error(
             "Invalid email format"
           );
         }
       }
-    },
-    password: {
-      type: String,
-      required:true,
-      trim:true,
-      min:8,
     },
     password: {
       type: String,
@@ -45,8 +39,8 @@ const userSchema = mongoose.Schema(
       },
     },
     walletMoney: {
-      type:Number,
-      default:config.default_wallet_money
+      type: Number,
+      default: config.default_wallet_money
     },
     address: {
       type: String,
@@ -65,7 +59,7 @@ const userSchema = mongoose.Schema(
  */
 
 userSchema.statics.isEmailTaken = async function (email) {
-  return await this.findOne({email:email})
+  return await this.findOne({ email: email })
 };
 
 /**
@@ -74,9 +68,9 @@ userSchema.statics.isEmailTaken = async function (email) {
  * @returns {Promise<boolean>}
  */
 
-userSchema.methods.isPasswordMatch = async function(password){
+userSchema.methods.isPasswordMatch = async function (password) {
   const user = this
-  return await bcrypt.compare(password,user.password)
+  return await bcrypt.compare(password, user.password)
 }
 
 /**
@@ -86,9 +80,9 @@ userSchema.methods.isPasswordMatch = async function(password){
  *
  * @returns {Promise<boolean>}
  */
- userSchema.methods.hasSetNonDefaultAddress = async function () {
+userSchema.methods.hasSetNonDefaultAddress = async function () {
   const user = this;
-   return user.address !== config.default_address;
+  return user.address !== config.default_address;
 };
 
 
@@ -103,6 +97,6 @@ userSchema.methods.isPasswordMatch = async function(password){
  * @typedef User
  */
 
-const User =  mongoose.model('User',userSchema)
+const User = mongoose.model('User', userSchema)
 
-module.exports = {User}
+module.exports = { User }

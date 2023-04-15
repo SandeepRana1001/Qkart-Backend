@@ -8,18 +8,19 @@ let server;
 
 // app.use('/v1/users',userRoutes)
 
-mongoose.connect(config.mongoose.url,config.mongoose.options)
-.then(()=>{
-    console.log('Connected to Database successfully')
-    try{
-        app.listen(config.port)
-        console.log('Server Running on '+ config.port)
-    }catch(err){
-        console.log('Failed to start the server')
-    }
-}).catch((err)=>{
-    console.log(`Failed to connect to database`)
-})
+mongoose.connect(config.mongoose.url, config.mongoose.options)
+    .then(() => {
+        console.log('Connected to Database successfully')
+        try {
+            app.listen(config.port)
+            console.log('Server Running on ' + config.port)
+        } catch (err) {
+            console.log('Failed to start the server')
+        }
+    }).catch((err) => {
+        console.log(err)
+        console.log(`Failed to connect to database`)
+    })
 
 
 

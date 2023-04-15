@@ -17,7 +17,18 @@ const getProducts = async () => {
   return Product.find({});
 };
 
+/**
+ * Create product
+ * @params {Object} productObj
+*/
+
+const createProduct = async (productObj) => {
+  const product = new Product(productObj)
+  await product.save();
+}
+
 module.exports = {
   getProductById,
   getProducts,
+  createProduct
 };
